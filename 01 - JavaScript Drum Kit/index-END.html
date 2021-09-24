@@ -58,7 +58,33 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  // key和audio是否存在
+  function isExist(ev){
+    const audio = document.querySelector(`audio[data-key="${ev.keyCode}"]`)
+    const key = document.querySelector(`div[data-key="${ev.keyCode}"]`)
+    return {audio, key}
+  }  
 
+  // 鼠标按下的时候,添加class
+  function keyDown(ev){
+    const {audio, key} = isExist(ev)
+    if(audio && key && !ev.repeat){
+      key.classList.add("playing")
+      audio.currentTime = 0
+      audio.play()
+    }
+  }
+
+  // 鼠标抬起的时候,移除class
+  function keyUp(ev){
+    const {key} = isExist(ev)
+    if(key){
+      key.classList.remove("playing")
+    }
+  }
+  // 添加事件
+  window.addEventListener("keydown", keyDown)
+  window.addEventListener("keyup", keyUp)
 </script>
 
 
