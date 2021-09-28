@@ -21,7 +21,19 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    /* css全局变量 */
+    :root{
+      /* 变量名和input元素保持一致 */
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px
+    }
 
+    img{
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+      background-color: var(--base);
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +57,15 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll("input")
+
+    function changeValue(){
+      // 获取元素的自定义属性
+      const suffix = this.dataset.sizing || ""
+      // this指向当前触发事件的元素
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
+    inputs.forEach(input => input.addEventListener("change", changeValue))
   </script>
 
 </body>
